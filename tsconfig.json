@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "es2019",
+      "types": ["node", "mocha"],
+      "module": "commonjs",
+      "declaration": false,
+      "strict": true,
+      "allowSyntheticDefaultImports": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "strictPropertyInitialization": false,
+      "sourceMap": false,
+      "inlineSourceMap": true,
+      "outDir": "build",
+      "resolveJsonModule": true,
+      "baseUrl": ".",
+    },
+    "exclude": ["node_modules", "build/**"]
+  }
