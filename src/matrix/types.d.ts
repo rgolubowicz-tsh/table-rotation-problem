@@ -1,6 +1,6 @@
 export type MatrixElement = string | number;
 
-export interface IMatrix {
+export interface MatrixInterface {
   isValid: boolean;
   matrix: MatrixElement[][];
   rows: number;

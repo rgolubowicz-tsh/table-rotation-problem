@@ -1,13 +1,16 @@
 import chunk from "lodash.chunk";
 
-import { IMatrix, MatrixElement } from "./types";
+import { MatrixInterface, MatrixElement } from "./types";
 import { RingNumberOutOfRangeError } from "../errors/ring-number-out-of-range.error";
 import { winstonLogger } from "../shared/logger";
 
-export class Matrix implements IMatrix {
+export class Matrix implements MatrixInterface {
   public isValid: boolean = true;
+
   public matrix: MatrixElement[][];
+
   public rows = 0;
+
   public columns = 0;
 
   constructor(flatMatrix: MatrixElement[], rows: number, columns: number, isValid = true) {
@@ -59,14 +62,14 @@ export class Matrix implements IMatrix {
     let previous = this.matrix[firstRowIndex + 1][firstColumnIndex];
 
     // Copy first row of the matrix ring to the temporary matrix
-    for (let i = firstColumnIndex; i < lastColumnIndex; i++) {
+    for (let i = firstColumnIndex; i < lastColumnIndex; i = i + 1) {
       const current = this.matrix[firstRowIndex][i];
       tempMatrix[firstRowIndex][i] = previous;
       previous = current;
     }
 
     // Copy last column of the matrix ring to the temporary matrix
-    for (let i = firstRowIndex + 1; i < lastRowIndex; i++) {
+    for (let i = firstRowIndex + 1; i < lastRowIndex; i = i + 1) {
       const current = this.matrix[i][lastColumnIndex - 1];
       tempMatrix[i][lastColumnIndex - 1] = previous;
       previous = current;
@@ -90,7 +93,7 @@ export class Matrix implements IMatrix {
   }
 
   rotateAllRings() {
-    for (let i = 1; i <= this.ringsNumber; i++) {
+    for (let i = 1; i <= this.ringsNumber; i = i + 1) {
       this.rotateRingRight(i);
     }
   }
@@ -100,9 +103,7 @@ export class Matrix implements IMatrix {
   }
 
   private copyMatrix() {
-    return this.matrix.map(function (array) {
-      return array.slice();
-    });
+    return this.matrix.map((array) => array.slice());
   }
 
   static flatMatrixToDimensional(flatMatrix: MatrixElement[], columns: number): MatrixElement[][] {
