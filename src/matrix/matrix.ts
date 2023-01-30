@@ -2,6 +2,7 @@ import chunk from "lodash.chunk";
 
 import { IMatrix, MatrixElement } from "./types";
 import { RingNumberOutOfRangeError } from "../errors/ring-number-out-of-range.error";
+import { winstonLogger } from "../shared/logger";
 
 export class Matrix implements IMatrix {
   public isValid: boolean = true;
@@ -9,15 +10,17 @@ export class Matrix implements IMatrix {
   public rows = 0;
   public columns = 0;
 
-  constructor(flatMatrix: MatrixElement[], rows: number, columns: number) {
+  constructor(flatMatrix: MatrixElement[], rows: number, columns: number, isValid = true) {
     this.rows = rows;
     this.columns = columns;
 
     const totalElements = rows * columns;
 
-    if (totalElements === 0 || totalElements !== flatMatrix.length) {
+    if (totalElements === 0 || totalElements !== flatMatrix.length || !isValid) {
       this.isValid = false;
       this.matrix = [];
+
+      winstonLogger.error("Matrix that has been provided is not valid");
 
       return;
     }

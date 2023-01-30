@@ -1,4 +1,4 @@
-import * as winston from "winston";
+import winston from "winston";
 import { Logger } from "./types";
 
 const logFormat = winston.format.printf(({ level, message, meta }) => {
