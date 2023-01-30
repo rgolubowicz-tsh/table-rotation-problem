@@ -62,28 +62,28 @@ export class Matrix implements MatrixInterface {
     let previous = this.matrix[firstRowIndex + 1][firstColumnIndex];
 
     // Copy first row of the matrix ring to the temporary matrix
-    for (let i = firstColumnIndex; i < lastColumnIndex; i = i + 1) {
+    for (let i = firstColumnIndex; i < lastColumnIndex; i += 1) {
       const current = this.matrix[firstRowIndex][i];
       tempMatrix[firstRowIndex][i] = previous;
       previous = current;
     }
 
     // Copy last column of the matrix ring to the temporary matrix
-    for (let i = firstRowIndex + 1; i < lastRowIndex; i = i + 1) {
+    for (let i = firstRowIndex + 1; i < lastRowIndex; i += 1) {
       const current = this.matrix[i][lastColumnIndex - 1];
       tempMatrix[i][lastColumnIndex - 1] = previous;
       previous = current;
     }
 
     // Copy last column of the matrix ring to the temporary matrix
-    for (let i = lastColumnIndex - 2; i >= firstColumnIndex; i--) {
+    for (let i = lastColumnIndex - 2; i >= firstColumnIndex; i -= 1) {
       const current = this.matrix[lastRowIndex - 1][i];
       tempMatrix[lastRowIndex - 1][i] = previous;
       previous = current;
     }
 
     // Copy first column of the matrix ring to the temporary matrix
-    for (let i = lastRowIndex - 2; i >= firstRowIndex + 1; i--) {
+    for (let i = lastRowIndex - 2; i >= firstRowIndex + 1; i -= 1) {
       const current = this.matrix[i][firstColumnIndex];
       tempMatrix[i][firstColumnIndex] = previous;
       previous = current;
@@ -93,7 +93,7 @@ export class Matrix implements MatrixInterface {
   }
 
   rotateAllRings() {
-    for (let i = 1; i <= this.ringsNumber; i = i + 1) {
+    for (let i = 1; i <= this.ringsNumber; i += 1) {
       this.rotateRingRight(i);
     }
   }
