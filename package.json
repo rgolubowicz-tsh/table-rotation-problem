@@ -7,7 +7,8 @@
     "build": "npx tsc",
     "test": "ts-mocha -p tsconfig.json src/**/*.spec.ts",
     "init-husky": "husky install",
-    "prepare": "npm run init-husky"
+    "prepare": "npm run init-husky",
+    "lint": "eslint --ext .ts ./"
   },
   "author": "Rafał Gołubowicz",
   "license": "ISC",
