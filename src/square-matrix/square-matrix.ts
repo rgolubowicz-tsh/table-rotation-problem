@@ -1,4 +1,5 @@
-import { Matrix, MatrixElement } from "../matrix";
+import { Matrix } from "../matrix";
+import { MatrixElement } from "../matrix/types";
 import { DifferentColumnsAndRowsNumberInSquareMatrix } from "../errors/different-cols-rows-number-square-matrix.error";
 
 export class SquareMatrix extends Matrix {
