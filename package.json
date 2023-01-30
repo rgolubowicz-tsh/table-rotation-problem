@@ -19,6 +19,7 @@
     "@types/lodash.chunk": "^4.2.7",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
+    "@typescript-eslint/parser": "^5.49.0",
     "chai": "^4.3.7",
     "eslint": "^8.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
