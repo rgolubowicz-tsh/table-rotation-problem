@@ -4,7 +4,8 @@
   "description": "Table rotation problem solution",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "build": "npx tsc",
+    "test": "ts-mocha -p tsconfig.json src/**/*.spec.ts",
     "init-husky": "husky install",
     "prepare": "npm run init-husky"
   },
@@ -13,7 +14,11 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@types/chai": "^4.3.4",
+    "@types/lodash.chunk": "^4.2.7",
+    "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
+    "chai": "^4.3.7",
     "eslint": "^8.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -23,10 +28,15 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unicorn": "^45.0.2",
     "husky": "^8.0.3",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
+    "ts-mocha": "^10.0.0",
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "commander": "^10.0.0",
+    "lodash.chunk": "^4.2.0",
     "winston": "^3.8.2"
   }
 }
