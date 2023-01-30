@@ -45,12 +45,12 @@ export class Matrix implements IMatrix {
     }
 
     const tempMatrix = this.copyMatrix();
-    let firstRowIndex = ringNumber - 1;
+    const firstRowIndex = ringNumber - 1;
     const lastRowIndex = firstRowIndex + this.rows - 2 * (ringNumber - 1);
     const firstColumnIndex = ringNumber - 1;
     const lastColumnIndex = firstColumnIndex + this.columns - 2 * (ringNumber - 1);
 
-    if (firstRowIndex + 1 > lastRowIndex || firstColumnIndex + 1 > lastColumnIndex) {
+    if (firstRowIndex === lastRowIndex || firstColumnIndex === lastColumnIndex) {
       return;
     }
 
@@ -65,12 +65,8 @@ export class Matrix implements IMatrix {
       previous = current;
     }
 
-    // First row is covered
-    // Increase the row number indicator
-    firstRowIndex = firstRowIndex + 1;
-
     // Copy last column of the matrix ring to the temporary matrix
-    for (let i = firstRowIndex; i < lastRowIndex; i++) {
+    for (let i = firstRowIndex + 1; i < lastRowIndex; i++) {
       const current = this.matrix[i][lastColumnIndex - 1];
       tempMatrix[i][lastColumnIndex - 1] = previous;
       previous = current;
@@ -84,7 +80,7 @@ export class Matrix implements IMatrix {
     }
 
     // Copy first column of the matrix ring to the temporary matrix
-    for (let i = lastRowIndex - 2; i >= firstRowIndex; i--) {
+    for (let i = lastRowIndex - 2; i >= firstRowIndex + 1; i--) {
       const current = this.matrix[i][firstColumnIndex];
       tempMatrix[i][firstColumnIndex] = previous;
       previous = current;
