@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { Matrix } from "./matrix";
 import { MatrixElement } from "./types";
+import { ArrayLengthNotMatchDimensionsError, RingNumberOutOfRangeError } from "../errors";
 
 const flattenMatrix = {
   "2x2": [1, 2, 3, 4],
@@ -31,17 +32,13 @@ describe("Matrix class", () => {
 
       const matrix = new Matrix(input, 2, 2);
 
-      expect(matrix.isValid).to.be.true;
       expect(matrix.matrix).deep.equal(expected);
     });
 
     it("should create a new invalid matrix object", () => {
       const input = [1, 2, 3, 4, 5];
 
-      const matrix = new Matrix(input, 2, 2);
-
-      expect(matrix.isValid).to.be.false;
-      expect(matrix.matrix).deep.equal([]);
+      expect(() => new Matrix(input, 2, 2)).to.throw(ArrayLengthNotMatchDimensionsError);
     });
   });
 
@@ -93,7 +90,7 @@ describe("Matrix class", () => {
       const input = flattenMatrix["4x4"];
       const matrix = new Matrix(input, 4, 4);
 
-      expect(() => matrix.rotateRingRight(3)).to.throw();
+      expect(() => matrix.rotateRingRight(3)).to.throw(RingNumberOutOfRangeError);
     });
 
     it("should rotate all rings to the right by 1 position - matrix 2x2", () => {
