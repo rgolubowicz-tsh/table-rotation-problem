@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
     "test": "ts-mocha -p tsconfig.json src/**/*.spec.ts",
     "init-husky": "husky install",
     "prepare": "npm run init-husky",
