@@ -12,7 +12,7 @@
       "sourceMap": false,
       "esModuleInterop": true,
       "inlineSourceMap": true,
-      "outDir": "build",
+      "outDir": ".",
       "resolveJsonModule": true,
       "baseUrl": ".",
     },
