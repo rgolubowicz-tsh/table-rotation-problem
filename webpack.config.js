@@ -11,7 +11,7 @@ module.exports = {
     __dirname: true,
   },
   resolve: {
-    extensions: [".js", ".ts", ".tsx"],
+    extensions: [".js", ".ts", ".tsx", "json"],
   },
   optimization: {
     minimize: false,

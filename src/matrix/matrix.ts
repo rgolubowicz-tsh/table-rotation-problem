@@ -2,30 +2,23 @@ import chunk from "lodash.chunk";
 
 import { MatrixInterface, MatrixElement } from "./types";
 import { RingNumberOutOfRangeError } from "../errors/ring-number-out-of-range.error";
-import { winstonLogger } from "../shared/logger";
+import { ArrayLengthNotMatchDimensionsError } from "../errors/array-length-not-match-dimensions.error";
 
 export class Matrix implements MatrixInterface {
-  public isValid: boolean = true;
-
   public matrix: MatrixElement[][];
 
   public rows = 0;
 
   public columns = 0;
 
-  constructor(flatMatrix: MatrixElement[], rows: number, columns: number, isValid = true) {
+  constructor(flatMatrix: MatrixElement[], rows: number, columns: number) {
     this.rows = rows;
     this.columns = columns;
 
     const totalElements = rows * columns;
 
-    if (totalElements === 0 || totalElements !== flatMatrix.length || !isValid) {
-      this.isValid = false;
-      this.matrix = [];
-
-      winstonLogger.error("Matrix that has been provided is not valid");
-
-      return;
+    if (totalElements === 0 || totalElements !== flatMatrix.length) {
+      throw new ArrayLengthNotMatchDimensionsError();
     }
 
     this.matrix = Matrix.flatMatrixToDimensional(flatMatrix, columns);
@@ -39,10 +32,6 @@ export class Matrix implements MatrixInterface {
   }
 
   rotateRingRight(ringNumber: number): void {
-    if (!this.isValid) {
-      return;
-    }
-
     if (ringNumber > this.ringsNumber) {
       throw new RingNumberOutOfRangeError(ringNumber);
     }

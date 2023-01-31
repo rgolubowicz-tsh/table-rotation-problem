@@ -1,12 +1,16 @@
 import { CsvParserStream, CsvFormatterStream } from "fast-csv";
 import { createCSVReadStream } from "../shared/csv/csv-reader";
 import { RawDataRowInput, DataRowOutput, DataRowInput } from "./types";
-import { SquareMatrix } from "../square-matrix/square-matrix";
+import { SquareMatrix } from "../square-matrix";
 import { createCSVWriteStream } from "../shared/csv/csv-writer";
 import { MatrixElement } from "../matrix/types";
 import { formatterConfiguration } from "../shared/csv/consts/formatter-configuration.consts";
 import { winstonLogger } from "../shared/logger";
-import { CannotParseJsonError } from "../errors/cannot-parse-json.error";
+import {
+  ArrayLengthNotMatchDimensionsError,
+  CannotParseJsonError,
+  DifferentColumnsAndRowsNumberInSquareMatrix,
+} from "../errors";
 
 export class TableRotationProblemCLI {
   private readStream: CsvParserStream<RawDataRowInput, DataRowOutput>;
@@ -32,22 +36,23 @@ export class TableRotationProblemCLI {
 
       const rotatedMatrix = this.transformSingleMatrix(dataRow.json);
 
-      if (rotatedMatrix) {
-        this.writeData(row.id, rotatedMatrix, true);
-      } else {
-        this.writeData(row.id, [], false);
-      }
+      this.writeData(row.id, rotatedMatrix, true);
     } catch (error) {
+      if (
+        error instanceof ArrayLengthNotMatchDimensionsError ||
+        error instanceof DifferentColumnsAndRowsNumberInSquareMatrix
+      ) {
+        this.writeData(row.id, [], false);
+
+        return;
+      }
+
       this.handleError(error);
     }
   }
 
   private transformSingleMatrix(flatMatrix: MatrixElement[]) {
     const matrix = new SquareMatrix(flatMatrix);
-
-    if (!matrix.isValid) {
-      return null;
-    }
 
     matrix.rotateAllRings();
 
