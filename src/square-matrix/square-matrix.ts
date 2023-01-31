@@ -18,8 +18,8 @@ export class SquareMatrix extends Matrix {
       const matrixSize = SquareMatrix.determineMatrixSize(flatMatrix.length);
 
       super(flatMatrix, matrixSize, matrixSize);
-    } catch {
-      super(flatMatrix, 0, 0, false);
+    } catch (error) {
+      throw error;
     }
   }
 }
