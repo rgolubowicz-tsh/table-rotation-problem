@@ -16,8 +16,8 @@ import { parserConfiguration } from "../shared/csv/consts/parser-configuration.c
 export class TableRotationProblemCLI {
   private writeStream: CsvFormatterStream<RawDataRowInput, DataRowOutput>;
 
-  isHeaderRow(line: any): boolean {
-    return !!line.id?.startsWith("id") && !!line.json?.startsWith("json");
+  private isCSVHeader(row: RawDataRowInput): boolean {
+    return row.id.startsWith("id") || row.json.startsWith("json");
   }
 
   private prepareWriteStream(configuration: typeof formatterConfiguration) {
@@ -38,7 +38,7 @@ export class TableRotationProblemCLI {
   }
 
   private handleDataRow(row: RawDataRowInput) {
-    if (this.isHeaderRow(row)) {
+    if (this.isCSVHeader(row)) {
       return;
     }
 
