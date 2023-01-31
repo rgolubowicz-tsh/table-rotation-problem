@@ -4,6 +4,7 @@ import { MatrixElement } from "./types";
 
 const flattenMatrix = {
   "2x2": [1, 2, 3, 4],
+  "3x3": [1, 2, 3, 4, 5, 6, 7, 8, 9],
   "4x4": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
 };
 
@@ -56,6 +57,16 @@ describe("Matrix class", () => {
       matrix.rotateRingRight(1);
 
       expect(matrix.matrix).deep.equal(expected);
+    });
+
+    it("should rotate 1st ring to the right by 1 position - matrix 3 x 3", () => {
+      const input = flattenMatrix["3x3"];
+      const expected = [4, 1, 2, 7, 5, 3, 8, 9, 6];
+      const matrix = new Matrix(input, 3, 3);
+
+      matrix.rotateRingRight(1);
+
+      expect(matrix.flatten).deep.equal(expected);
     });
 
     it("should rotate 1st ring to the right by 1 position - matrix 4 x 4", () => {
