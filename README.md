@@ -60,7 +60,7 @@ Matrix 2x2 includes only 1 ring which is the whole matrix.
 Matrix 3x3 contains 2 rings:
 ```
 1 2 3        - - -
-4 - 5        - 8 -
+4 - 6        - 5 -
 7 8 9        - - -
 ```
 
