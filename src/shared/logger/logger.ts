@@ -18,5 +18,5 @@ const logFormat = winston.format.printf(({ level, message, meta }) => {
 export const winstonLogger: Logger = winston.createLogger({
   level: process.env.LOGGING_LEVEL || "debug",
   format: winston.format.combine(winston.format.splat(), logFormat),
-  transports: [new winston.transports.Console()],
+  transports: [new winston.transports.File({ filename: "error.log" })],
 });
