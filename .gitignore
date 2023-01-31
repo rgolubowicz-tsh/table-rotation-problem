@@ -9,3 +9,7 @@ build
 
 tmp
 /.npmrc
+
+cli.js
+input.csv
+output.csv
