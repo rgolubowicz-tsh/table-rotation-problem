@@ -14,12 +14,8 @@ export class SquareMatrix extends Matrix {
   }
 
   constructor(flatMatrix: MatrixElement[]) {
-    try {
-      const matrixSize = SquareMatrix.determineMatrixSize(flatMatrix.length);
+    const matrixSize = SquareMatrix.determineMatrixSize(flatMatrix.length);
 
-      super(flatMatrix, matrixSize, matrixSize);
-    } catch (error) {
-      throw error;
-    }
+    super(flatMatrix, matrixSize, matrixSize);
   }
 }
