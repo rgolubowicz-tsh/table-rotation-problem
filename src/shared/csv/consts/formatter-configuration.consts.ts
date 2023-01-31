@@ -4,6 +4,6 @@ export const formatterConfiguration: FormatterOptionsArgs<any, any> = {
   headers: true,
   escape: "\n",
   delimiter: ",",
-  quote: '"',
+  quote: `"`,
   quoteHeaders: false,
 };

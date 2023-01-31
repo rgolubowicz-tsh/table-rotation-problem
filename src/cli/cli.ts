@@ -1,5 +1,5 @@
-import { createCSVReadStream } from "../shared/csv/csv-reader";
 import { CsvParserStream, CsvFormatterStream } from "fast-csv";
+import { createCSVReadStream } from "../shared/csv/csv-reader";
 import { RawDataRowInput, DataRowOutput, DataRowInput } from "./types";
 import { SquareMatrix } from "../square-matrix/square-matrix";
 import { createCSVWriteStream } from "../shared/csv/csv-writer";
@@ -12,8 +12,6 @@ export class TableRotationProblemCLI {
   private readStream: CsvParserStream<RawDataRowInput, DataRowOutput>;
 
   private writeStream: CsvFormatterStream<RawDataRowInput, DataRowOutput>;
-
-  constructor() {}
 
   rotateDataFromCSV(inputFilePath: string) {
     this.writeStream = createCSVWriteStream({
