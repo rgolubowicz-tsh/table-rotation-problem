@@ -1,4 +1,4 @@
-import { CsvParserStream, CsvFormatterStream } from "fast-csv";
+import { CsvFormatterStream } from "fast-csv";
 import { createCSVReadStream } from "../shared/csv/csv-reader";
 import { RawDataRowInput, DataRowOutput, DataRowInput } from "./types";
 import { SquareMatrix } from "../square-matrix";
@@ -11,26 +11,37 @@ import {
   CannotParseJsonError,
   DifferentColumnsAndRowsNumberInSquareMatrix,
 } from "../errors";
+import { parserConfiguration } from "../shared/csv/consts/parser-configuration.consts";
 
 export class TableRotationProblemCLI {
-  private readStream: CsvParserStream<RawDataRowInput, DataRowOutput>;
-
   private writeStream: CsvFormatterStream<RawDataRowInput, DataRowOutput>;
 
+  isHeaderRow(line: any): boolean {
+    return !!line.id?.startsWith("id") && !!line.json?.startsWith("json");
+  }
+
+  private prepareWriteStream(configuration: typeof formatterConfiguration) {
+    this.writeStream = createCSVWriteStream(configuration);
+    this.writeStream.pipe(process.stdout);
+  }
+
   rotateDataFromCSV(inputFilePath: string) {
-    this.writeStream = createCSVWriteStream({
+    this.prepareWriteStream({
       ...formatterConfiguration,
       quoteColumns: [false, true, false],
     });
-    this.writeStream.pipe(process.stdout);
 
-    this.readStream = createCSVReadStream(inputFilePath)
-      .on("error", (error) => this.handleError(error))
-      .on("data", (data) => this.handleDataRow(data))
+    createCSVReadStream(inputFilePath, { ...parserConfiguration, columns: ["id", "json"] })
+      .on("error", (error: unknown) => this.handleError(error))
+      .on("data", (data: RawDataRowInput) => this.handleDataRow(data))
       .on("end", () => this.cleanup());
   }
 
   private handleDataRow(row: RawDataRowInput) {
+    if (this.isHeaderRow(row)) {
+      return;
+    }
+
     try {
       const dataRow = this.parseRawDataInput(row);
 
@@ -80,7 +91,6 @@ export class TableRotationProblemCLI {
 
   private cleanup() {
     this.writeStream?.end();
-    this.readStream?.end();
   }
 
   private handleError(error: unknown) {
