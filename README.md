@@ -151,3 +151,7 @@ To run unit tests perform command below:
 ```
 npm run test
 ```
+
+## Deprecated library
+
+There are some logs during execution regarding deprecated methods. Those methods comes from `csv-stream` library that is being used for reading CSV. In comparision to other available solutions, it's the one of the most effectives libraries.
