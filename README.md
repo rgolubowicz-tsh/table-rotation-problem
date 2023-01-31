@@ -4,36 +4,6 @@
 
 Given a matrix of order NxN, the task is to rotate each ring of the matrix clockwise. If any ring includes singular field, it is not moved.
 
-## Building 
-
-```
-npm run install
-npm run build
-```
-
-## Usage
-After building the package, run algorithms by command below:
-```
-node cli.js input.csv > output.csv
-```
-
-The input.csv is the path to the input file. It's the first and only argument to the program.
-The output.csv is the file path where the output will be saved.
-
-### Input file structure
-
-The input will be a CSV file with the columns id and json. ID should be a string and json to be a string (JSON encoded data).
-
-```
-id,json
-1,"[1, 2, 3, 4, 5, 6, 7, 8, 9]"
-2,"[40, 20, 90, 10]"
-3,"[-5]"
-9,"[2, -0]"
-5,"[2, -5, -5]"
-8,"[1, 1, 1, 1, 1]”
-```
-
 ## Problem
 
 Given a matrix of order NxN, the algorithm should rotate each ring which is inside that matrix.
@@ -139,3 +109,45 @@ After 2nd iteration (rotate 2nd ring):
 - Move elements of the last column (starting from the first row);
 - Move elements of the bottom row (starting from the last column);
 - Move elements of the first column (starting from the last row); 
+
+
+## Building 
+
+```
+npm run install
+npm run build
+```
+
+## Usage
+After building the package, run algorithms by command below:
+```
+node cli.js input.csv > output.csv
+```
+
+The input.csv is the path to the input file. It's the first and only argument to the program.
+The output.csv is the file path where the output will be saved.
+
+### Input file structure
+
+The input will be a CSV file with the columns id and json. ID should be a string and json to be a string (JSON encoded data).
+
+```
+id,json
+1,"[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+2,"[40, 20, 90, 10]"
+3,"[-5]"
+9,"[2, -0]"
+5,"[2, -5, -5]"
+8,"[1, 1, 1, 1, 1]”
+```
+
+Inside `/tests` directory there are a few example input files.
+
+## Testing
+### Unit tests
+
+To run unit tests perform command below:
+
+```
+npm run test
+```
